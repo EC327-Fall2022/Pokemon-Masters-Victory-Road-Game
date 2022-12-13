@@ -23,7 +23,7 @@ class WildPokemon : public GameObject
 
     bool variant;
 
-    bool in_combat = false;
+    bool in_combat = false;;
 
     string name;
 
@@ -32,7 +32,7 @@ class WildPokemon : public GameObject
     public:
     WildPokemon(string name, double attack, double health, bool variant, int id, Point2D in_loc);
 
-    void follow(Trainer* t); //didnt finish definition
+    void follow(Trainer* t); 
 
     bool get_variant();
 
@@ -42,7 +42,9 @@ class WildPokemon : public GameObject
 
     bool get_in_combat();
 
-    bool Update(); //didnt finish definition
+    bool Update(); 
+    
+    bool ShouldBeVisible();
 
     void ShowStatus();
 
