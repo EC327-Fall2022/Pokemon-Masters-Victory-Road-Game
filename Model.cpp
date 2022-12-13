@@ -43,9 +43,7 @@ Model::Model()
     gym_ptrs.push_back(g2);
     object_ptrs.push_back(g2);
 
-//For some reason, my compiler's saying that this has a missing paramter when everything is lined up well???
-
-/*    WildPokemon* w1 = new WildPokemon("WildPokemon1", 5.0, 2.0, false, 1, Point2D(10,12));
+    WildPokemon* w1 = new WildPokemon("WildPokemon1", 5.0, 2.0, false, 1, Point2D(10,12));
     wildpokemon_ptrs.push_back(w1);
     object_ptrs.push_back(w1);
     active_ptrs.push_back(w1);
@@ -54,7 +52,7 @@ Model::Model()
     wildpokemon_ptrs.push_back(w2);
     object_ptrs.push_back(w2);
     active_ptrs.push_back(w2);
-*/
+
     cout << "Model default constructed" << endl;
 }
 
