@@ -3,7 +3,7 @@
 
 using namespace std;
 
-WildPokemon::WildPokemon(string name, double attack, double health, bool variant, int id, Point2D in_loc):GameObject('W', id, in_loc)
+WildPokemon::WildPokemon(string name, double attack, double health, bool variant, int id, Point2D in_loc):GameObject(in_loc, id, 'W')
 {
     this -> name = name;
     this -> attack = attack;
@@ -11,21 +11,27 @@ WildPokemon::WildPokemon(string name, double attack, double health, bool variant
     this -> variant = variant;
     this -> id_num = id;
     this -> location = in_loc;
-    &get_in_combat = false;
     state = IN_ENVIRONMENT;
 }
 
 void WildPokemon::follow(Trainer* t)
 {
     current_trainer = t;
-
-    if ((((current_trainer -> GetLocation()).x) == (location.x)) && ((((current_trainer -> GetLocation()).y) == (location.y))))
-    {
-        state = IN_TRAINER;
+    int x;
+    int y;
+    (location.x) = ((current_trainer -> GetLocation()).x);
+    (location.y) = ((current_trainer -> GetLocation()).y);
+    
+    if (state == DEAD){
+        cout << display_code << id_num << "Your Pokemon Died" << endl;
     }
-    else
-    {
+    else if (GetDistanceBetween(t -> GetLocation(), location) == 0){
+        state = IN_TRAINER;
+        cout << display_code << id_num << "Pokemon is following Trainer" << endl;
+    }
+    else{
         state = IN_ENVIRONMENT;
+        cout << display_code << id_num << current_trainer -> GetId () << endl;
     }
 }
 
@@ -46,15 +52,7 @@ double WildPokemon::get_health()
 
 bool WildPokemon::get_in_combat()
 {
-    if (current_trainer -> GetLocation() == location)
-    {
-        return in_combat;
-    }
-
-    else
-    {
-        return in_combat;
-    }
+    return in_combat;
 }
 
 bool WildPokemon::Update()
@@ -67,13 +65,14 @@ bool WildPokemon::Update()
     else if (health <= 0)
     {
         state = DEAD;
+        return false;
     }
 
-    else if (state == IN_TRAINER)
+    else if (GetDistanceBetween(current_trainer -> GetLocation(), location) == 0)
     {
-        (location.x) = ((current_trainer -> GetLocation()).x);
-        (location.y) = ((current_trainer -> GetLocation()).y);
-        //Still things that need to be added
+        state = IN_TRAINER;
+        cout << display_code << id_num << "Pokemon is following Trainer" << endl;
+        return false;
     }
 }
 
@@ -101,5 +100,15 @@ bool WildPokemon::isAlive()
     else
     {
         return false;
+    }
+}
+
+bool WildPokemon::ShouldBeVisible()
+{
+    if (state == DEAD){
+        return false;
+    }
+    else{
+        return true;
     }
 }
